@@ -1,0 +1,123 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} {{BusI.bus_name}}-Seat check {% endblock %}
+{% block css %}
+
+    .lab{
+    cursor: pointer;
+    background-color:#1aa3ff;
+
+}
+.lab input[type="checkbox"]{
+    display: none;
+}
+  .lab2{
+    cursor: pointer;
+    background-color:#000;
+
+}
+
+.lab span{
+    position : relative;
+display: inline-block;
+background-color: # 000;
+padding: 10px 20px;
+color:#fff;
+font-size:20px;
+user-select:none;
+overflow:hidden;
+
+}
+.disa{
+height:60px;
+width:60px;
+background-color:#000;
+align-items:center;
+justify-content:center;
+padding:6px 15px;
+}
+.gpd{
+width:50px;
+}
+.disa p{
+ font-size: 20px;
+ color:#fff;
+}
+
+.lab input[type="checkbox"]:checked ~ span
+{
+    background-color: #ff3399;
+}
+
+{% endblock %}
+{% block body %}
+<div class="container">
+
+<div class="row">
+    <div class="offset-lg-1 col-md-10">
+    <div class="card card-body">
+        <h2>Your journey ends are:
+        <span style="color:#00b3b3">{{froml}}</span>  to  <span style="color:#00b3b3">{{ tol}}</span></h2>
+
+    </div></div>
+</div>
+<h2 class="my-5">Check avaibaility of seats based on Dates below.. </h2>
+
+    </div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6">
+     <form action="" id="seatCheckForm" method="post" data-cities-url="{% url 'SeatStatus' id ty%}">
+
+    {% csrf_token %}
+
+          <div class="form-group">
+              <label for="dateot">Select Date of Journey:-</label>
+            <select class="form-control" id="dateot" name="dateot">
+            <option value="">Choose date of journey.</option>
+          <option value="1" >Today</option>
+          <option value="2">Tomorrow</option>
+          <option value="3">Day after tomorrow</option>
+          <option value="4">Day after Overmorrow</option>
+            </select>
+          </div>
+         <div class="form-group" id="checkss">
+
+         </div>
+  <button type="submit" class="btn btn-primary">Book</button>
+
+
+
+</form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#dateot").change(function () {
+      var url = $("#seatCheckForm").attr("data-cities-url");
+      var dayId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'dateoj': dayId
+        },
+        success: function (data) {
+          $("#checkss").html(data);
+        }
+      });
+
+    });
+    </script>
+
+{% endblock %}}
+
+
+

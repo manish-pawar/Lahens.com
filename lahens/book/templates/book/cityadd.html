@@ -1,0 +1,50 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+
+             <a href="{% url 'stateAdd' %}" class="btn btn-outline-success">Go to State Add page</a>
+             <a href="{% url 'Allbuses' %}" class="btn btn-outline-success">Go to Buses page</a><hr>
+
+    <div class="text-center bg-warning "><h2 style="color:#111;">Enter city name here</h2><hr></div>
+    <div class="row">
+        <div class="offset-lg-3 col-sm-6 text-center">
+        <form method="post" action="/city/{{s_id}}/">
+            {% csrf_token %}
+          <div class="form-group ">
+            <label for="cityname">City name:</label>
+            <input type="text" class="form-control" id="cityname" name="cityname" aria-describedby="cityhelp" placeholder="Enter city name">
+            <small id="cityhelp" class="form-text text-muted">Enter name of city here .</small>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form></div>
+    </div><br><hr>
+
+   {% if empty == True  %}
+        <div class="text-center"><h4>Still not added any cities ...Add in the above form.</h4></div>
+    {% else %}
+    <div class="text-center"><h4>List of cities u have:-</h4></div>
+    <div class="row">
+
+        {% for i in  cities %}
+        <div class="col-sm-4 mt-3">
+            <div class="card text-center p-3">
+            <h4>City name - {{i.name}}</h4>
+
+            </div></div>
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="row">
+                {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}}

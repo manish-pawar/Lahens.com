@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>register page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/custom1.css'%}">
+</head>
+<body>
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2 class="inactive underlineHover"> <a href="{% url 'login' %}" style="text-decoration:none;">Sign In </a></h2>
+      <h2 class="active">Sign Up </h2>
+
+    <!-- Icon -->
+
+
+    <!-- Login Form -->
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{form.username}}
+        {{form.email}}
+        {{form.password1}}
+        {{form.password2}}
+
+      <input type="submit" class="" value="Sign In">
+    </form>
+
+      {% for msg in messages %}
+					<p id="messages">{{msg}}</p>
+				{% endfor %}
+
+
+  </div>
+</div>
+
+</body>
+<script>
+
+		var form_fields = document.getElementsByTagName('input')
+		form_fields[1].placeholder='Username..';
+		form_fields[2].placeholder='Email..';
+		form_fields[3].placeholder='Enter password...';
+		form_fields[4].placeholder='Re-enter Password...';
+
+
+		for (var field in form_fields){
+			form_fields[field].className += ' form-control'
+		}
+	</script>
+</html>

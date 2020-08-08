@@ -1,0 +1,49 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} {{busV.bus_name}}-view details {% endblock %}
+
+{% block body %}<br>
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-4">
+            <div class="card card-body">
+            <h5>Name of Bus:-{{busV.bus_name}}</h5><br>
+            <p><b>Starting location:-{{busV.froml}}</b></p>
+            <p><b>End location:-{{busV.tol}}</b></p>
+                <p>Description about bus:-{{busV.desc}}</p></div>
+        </div>
+
+        <div class="col-sm-8">
+            <div class="card mt-3">
+              <table class="table">
+              <thead class="thead-dark">
+                  <tr>
+
+                    <th>Name of spot</th>
+                    <th>Time of arrival of spot </th>
+                    <th>Distance of spot from previous spot</th>
+                    </tr>
+
+              </thead>
+              <tbody>
+
+               {% for i in busp %}
+                <tr>
+                <td>{{i.spot_name}}</td>
+                <td>{{i.spot_time}}</td>
+                <td>{{i.spot_distance}}KM from {{i.last_spot}}</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

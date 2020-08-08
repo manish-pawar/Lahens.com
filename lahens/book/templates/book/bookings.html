@@ -1,0 +1,30 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+        {% for i in liste %}
+        <div class="col-md-6 my-3">
+            <div class="card card-body">
+                {{forloop.counter}}
+        {% for j in i%}
+            {% if forloop.counter == 1  %}
+                <h2>{{j.bus.bus_name}}</h2>
+
+                <p>{{j.book_date}}</p>
+                <p>Your seats were:</p>
+                {%  endif%}
+
+                {{j.seat_no}},
+
+        {% endfor %}
+                </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

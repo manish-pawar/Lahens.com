@@ -1,0 +1,94 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+  <br>
+<div class="container">
+<h2>Before you start booking please enter some details.<br>Enter your details here.</h2><br>
+
+      <form method="post" action="" id="pathtkForm" data-cities-url="{% url 'ajax_load_cities' %}"
+                data-village-url="{% url 'ajax_load_villages' %}" >
+
+        {% csrf_token %}
+          <div class="row">
+
+
+    <div class="col-sm-6 offset-lg-3">
+          <div class="form-group">
+     <label for="phno">Phone number</label>
+     <input type="text" class="form-control" id="phno" name="phno"  value="{{customer.phone}}"  placeholder="Enter Phone no... ">
+
+          </div></div>
+    <div class=" col-sm-6 offset-lg-3">
+        <div class="form-group">
+    <label for="states">Example select</label>
+    <select class="form-control" id="states" name="states" >
+        <option value="">Select state</option>
+        {% for i in states %}
+      <option value="{{i.id}}">{{i.name}}</option>
+      {% endfor %}
+    </select>
+        </div></div>
+    <div class="col-sm-6 offset-lg-3">
+          <div class="form-group">
+    <label for="cities">Select City</label>
+    <select class="form-control" id="cities" name="cities" >
+        <option value="">Select city</option>
+    </select>
+          </div></div>
+
+            <div class="col-sm-6 offset-lg-3">
+        <button type="submit" class="btn btn-primary">Save</button></div></div>
+      </form>
+    </div>
+    <div class="spots"></div>
+
+
+{% endblock body %}
+
+
+
+{% block js %}
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+
+    $("#states").change(function () {
+      var url = $("#pathtkForm").attr("data-cities-url");
+      var stateId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'state': stateId
+        },
+        success: function (data) {
+          $("#cities").html(data);
+        }
+      });
+
+    });
+
+    </script>
+    <script>
+        $("#cities").change(function () {
+      var url = $("#pathtkForm").attr("data-village-url");
+      var cityId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'city': cityId
+        },
+        success: function (data) {
+          $("#villages").html(data);
+        }
+      });
+
+    });
+
+  </script>
+
+{% endblock %}}

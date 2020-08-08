@@ -1,0 +1,60 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+
+<div class="container">
+            <div class="m-2 text-center">
+                <h3>Enter bus details below..</h3>
+            </div>
+
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="row">
+                <div class="col-sm-6">
+                      <div class="form-group">
+                        <label for="busname">Bus Name</label>
+                        <input type="text" class="form-control" id="busname" name="busname" value="{{bus.bus_name}}" aria-describedby="bush" placeholder="Enter bus name..">
+                        <small id="bush" class="form-text text-muted">Add the name of bus .</small>
+                      </div>
+                </div>
+                <div class="col-sm-6">
+                        <div class="form-group">
+                        <label for="scount">Seat count</label>
+                        <input type="number" class="form-control" id="scount" name="scount" value="{{bus.seat_count}}" aria-describedby="scounth" placeholder="Enter seat count...">
+                        <small id="scounth" class="form-text text-muted">Enter no of seats your bus have.</small>
+                      </div>
+                    </div>
+                <div class="col-sm-12">
+                        <div class="form-group">
+                        <label for="desc">Description of bus </label>
+                        <textarea  rows="4"  class="form-control" id="desc" name="desc" value="{{bus.desc}}"  >
+                        </textarea>
+                      </div>
+                    </div>
+                <div class="col-sm-6">
+                        <div class="form-group">
+                        <label for="froml">Starting Spot</label>
+                        <input type="text" class="form-control" id="froml" name="froml"  value="{{bus.froml}}" placeholder="Enter starting spot of bus..">
+                      </div>
+                    </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                    <label for="tol">Ending Spot</label>
+                    <input type="text" class="form-control" id="tol" name="tol"  value="{{bus.tol}}" placeholder="Enter ending spot of bus..">
+                  </div>
+                </div>
+                <br>
+                <div class="col-sm-4">
+                    <button type="submit" class="btn btn-primary">Edit</button></div></div>
+            </form>
+
+    </div>
+</div>
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}}

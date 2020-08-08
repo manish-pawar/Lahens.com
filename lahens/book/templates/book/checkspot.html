@@ -1,0 +1,24 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <a href="{% url 'pathAdd' bus.id%}" class="btn btn-outline-primary">Add spots</a>
+    <hr>
+    <div class="row">
+        {% for i in paths %}
+            <div class="col-sm-4 ">
+                <div class="card card-body mb-1">
+
+                    <h5>{{i.spot_name}}</h5>
+                    <p>{{i.spot_time}}</p>
+                    <p>{{i.spot_distance}}Km from {{i.last_spot}}</p>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

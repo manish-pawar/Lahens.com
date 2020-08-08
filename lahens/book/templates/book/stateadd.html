@@ -1,0 +1,51 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+
+             <a href="{% url 'Allbuses' %}" class="btn btn-outline-success">Go to Buses page</a><hr>
+    <div class="text-center"><h2>Enter state name here</h2><hr></div>
+    <div class="row">
+        <div class="offset-lg-3 col-sm-6 text-center">
+        <form method="post" action="/state/">
+            {% csrf_token %}
+          <div class="form-group">
+            <label for="statename">State name:</label>
+            <input type="text" class="form-control" id="statename" name="statename" aria-describedby="statehelp" placeholder="Enter state name">
+            <small id="statehelp" class="form-text text-muted">Enter name of state here and then we will provide you
+                the link for adding below cities.</small>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form></div>
+    </div><br><hr>
+
+    {% if empty == True  %}
+        <div class="text-center"><h4>Still not added any states ...Add in the above form.</h4></div>
+    {% else %}
+    <div class="text-center"><h4>List of states u have:-</h4></div>
+    <div class="row">
+
+        {% for i in  states %}
+        <div class="col-sm-6 mt-3">
+            <div class="card text-center">
+            <h2>State name - {{i.name}}</h2>
+                <h2>
+                <a href="/city/{{i.id}}" style=" margin:10px; width:300px;" class="btn btn-outline-warning">Add city to {{i.name}} </a>
+                </h2>
+            </div></div>
+                {% if forloop.counter|divisibleby:2 and forloop.counter > 0 and not forloop.last %}
+                </div><div class="row">
+                {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}}

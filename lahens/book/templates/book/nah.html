@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<input type="text" id="myInput"/>
+<input type="text" id="myInput1"/><button onclick="myFunction()">click</button>
+<div id="result"></div>
+
+<p id="greeting"></p>
+<p id="storedName"></p>
+<p id="greeting1"></p>
+<p id="storedName1"></p>
+<script>
+// Check browser support
+function getName() {
+  return localStorage.getItem("userName");
+}
+function getNam() {
+  return localStorage.getItem("user");
+}
+
+function updateHTML() {
+  var name = getName();
+  var nam= getNam();
+  document.getElementById("greeting").innerHTML = "Hello, " + name + "! Welcome!";
+  document.getElementById("storedName").innerHTML = name;
+	document.getElementById("greeting1").innerHTML = "Hello, " + nam + "! Welcome!";
+  document.getElementById("storedName1").innerHTML = nam;
+}
+
+function myFunction() {
+  // Gets input value
+  var name = document.getElementById("myInput").value;
+var nam = document.getElementById("myInput1").value;
+  // Saves data to retrieve later
+  localStorage.setItem("userName", name);
+  localStorage.setItem("user", nam);
+	console.log(localStorage);
+  // Updates HTML
+  updateHTML();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus Add page{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <a href="{% url 'Allbuses' %}" class="btn btn-warning">Go back for home page</a>
+<h2>Add spot</h2><br>
+
+      <form method="post" id="pathtkForm1" data-cities-url="{% url 'ajax_load_cities' %}"  >
+
+        {% csrf_token %}
+          <div class="row">
+    <div class="col-sm-4">
+           <div class="form-group">
+     <label for="spotname">Spot name</label>
+     <input type="text" class="form-control" id="spotname" name="spotname" placeholder="Enter name of spot...">
+           </div></div>
+
+    <div class="col-sm-4">
+          <div class="form-group">
+     <label for="spottime">Spot arrival time address</label>
+     <input type="text" class="form-control" id="spottime" name="spottime"   placeholder="Enter time of arrival of spot from last ">
+
+          </div></div>
+    <div class="col-sm-4">
+          <div class="form-group">
+     <label for="spotd">Spot Distance from last </label>
+     <input type="number" class="form-control" id="spotd" name="spotd" aria-describedby="cityhelp" placeholder="Enter distance of spot from previos spot.">
+          <small id="cityhelp" class="form-text text-muted">If spot is starting spot then enter 0.</small></div></div>
+    <div class="col-sm-6">
+        <div class="form-group">
+    <label for="states">Example select</label>
+    <select class="form-control" id="states" name="states">
+        <option value="">Select state</option>
+        {% for i in states %}
+      <option value="{{i.id}}">{{i.name}}</option>
+      {% endfor %}
+    </select>
+        </div></div>
+    <div class="col-sm-6">
+          <div class="form-group">
+    <label for="cities">Example select</label>
+    <select class="form-control" id="cities" name="cities">
+        <option value="">Select city</option>
+    </select>
+          </div></div><br>
+            <div class="col-sm-6">
+        <button type="submit" class="btn btn-primary">Save</button></div></div>
+      </form>
+    </div>
+    <div class="spots"></div><hr    >
+<div class="container">
+    <div class="row">
+        {% for i in liste %}
+            <div class="col-md-3">
+                <div class="card card-body mb-3">
+                <h2>{{i.spot_name}}</h2>
+                <p>City:{{i.city_name}}</p>
+                <p>State:{{i.state_name}}</p>
+                <p>{{i.spot_distance}}KM from {{i.last_spot}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock body %}
+
+
+
+{% block js %}
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+  <script>
+
+    $("#states").change(function () {
+      var url = $("#pathtkForm1").attr("data-cities-url");
+      var stateId = $(this).val();
+
+      $.ajax({
+        url: url,
+        data: {
+          'state': stateId
+        },
+        success: function (data) {
+          $("#cities").html(data);
+        }
+      });
+
+    });
+    </script>
+    <script>
+    /*$(document).on('submit', '#pathtkForm',function(e){
+    $.ajax({
+        type:'POST',
+        url:'',
+        data:{
+            spotname:$('#spotname').val(),
+            spottime:$('#spottime').val(),
+            spotd:$('#spotd').val(),
+            states:$('#states').val(),
+            cities:$('#cities').val(),
+            csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            action: 'post'
+        },
+        success:function(json){
+            document.getElementById("pathtkForm").reset();
+            $(".spots").prepend('<div class="col-md-6">'+
+                '<div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250
+                    position-relative">' +
+                    '<div class="col p-4 d-flex flex-column position-static">' +
+                        '<h3 class="mb-0">' + json.spotname + '</h3>' +
+                        '<p class="mb-auto">' + json.spottime + '</p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+            )
+        },
+        error : function(xhr,errmsg,err) {
+        console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+    }
+    });
+});*/
+  </script>
+
+{% endblock %}}

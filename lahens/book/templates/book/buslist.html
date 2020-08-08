@@ -1,0 +1,78 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Bus list{% endblock %}
+
+{% block body %}
+<br>
+<div class="container">
+    <div class="row">
+
+        <div class="col-sm-6">
+            <div class="card card-body">
+            <a href="{% url 'Addbuses' %}" class="btn btn-block  btn-outline-primary" >Add new bus</a>
+            <a href="{% url 'stateAdd' %}" class="btn btn-block btn-outline-primary" >Add cities or state</a></div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card card-body">
+            <a href="" class="btn btn-block btn-outline-warning">See feedbacks</a>
+                <a href="" class="btn bg-light btn-block btn-outline-primary">Change rate per k/m</a>
+
+            </div>
+        </div>
+    </div><hr>
+    {% if emptyb == True %}
+
+
+    <div class="m-3 text-center">Please add buses. You dont have any buses.</div>
+    {% else %}{% if emptym == True %}
+            <div class="m-3 text-center">The buses which are not alloted any spots for their travelling..</div>
+            <div class="row">
+                {% for i in emptys %}
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>{{i.bus_name}}</h2>
+                        </div>
+                        <div class="card-body"><h4>Not having spots add below</h4>
+                            <a href="/pathadd/{{i.id}}" class="btn btn-outline-warning btn-block">Add spots</a>
+                        </div>
+                        <div class="card-footer">
+                            <a href="" class="btn btn-outline-warning btn-block">Edit bus details</a>
+
+                        </div>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                        </div><div class="row">
+                        {% endif %}
+
+                {% endfor %}</div>{% endif %}
+             <div class="m-3 text-center">Regular Buses</div>
+                <div class="row">
+                    {% for i in regulars %}
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h2>{{i.bus_name}}</h2>
+                            </div>
+                            <div class="card-body">
+                                <a href="/checkspot/{{i.id}}" class="btn btn-outline-warning btn-block">Check spots</a>
+                            </div>
+                            <div class="card-footer">
+                                <a href="" class="btn btn-primary btn-block">See bookings</a><br>
+                                <a href="/editbus/{{i.id}}" class="btn btn-outline-warning btn-block">Edit bus details</a>
+
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:3 and forloop.counter > 0 and not forloop.last %}
+                            </div><div class="row">
+                            {% endif %}
+                    {% endfor %}
+</div>
+</div>{% endif %}
+
+{% endblock %}
+{% block js %}
+
+{% endblock %}}

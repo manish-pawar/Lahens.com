@@ -1,0 +1,4 @@
+<option value="">Select Village</option>
+{% for village in villages %}
+<option value="{{ village.pk }}">{{ village.spot_name }}</option>
+{% endfor %}

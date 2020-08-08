@@ -1,0 +1,22 @@
+{% extends 'book/basic.html' %}
+
+{% block title %} Contact page {% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+    <h2>{{mesage}}</h2><br>
+    <div class="col-sm-6">
+
+
+
+        {% for i in List%}
+        <p style="font-size:40px; color:green;">{{i}}</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
